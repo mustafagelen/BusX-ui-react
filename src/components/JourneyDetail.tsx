@@ -22,7 +22,6 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
         const fetchDetails = async () => {
             setLoading(true);
             try {
-                // Backend'den veriyi çekiyoruz
                 const data = await api.getSeats(journeyId);
                 setJourneyData(data.seats);
             } catch (error) {
@@ -39,29 +38,21 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
     const handleSeatSelect = (seat: Seat, gender: number) => {
         if (!journeyData) return;
 
-        // Check max seats
         if (selectedSeats.length >= 4) {
             setWarningMessage('Maksimum 4 koltuk seçebilirsiniz.');
             return;
         }
 
-        // Check adjacent seat constraints
         const rowSeats = journeyData.filter(s => s.row === seat.row);
 
-        // Find all potential neighbors (col +/- 1)
         const potentialNeighbors = rowSeats.filter(s => Math.abs(s.col - seat.col) === 1);
 
-        // Filter valid neighbors (not across aisle)
         const validNeighbors = potentialNeighbors.filter(neighbor => {
-            // Check if they are on the same side of the aisle
-            // Left side: col <= 2
-            // Right side: col > 2
             const seatSide = seat.col <= 2 ? 'left' : 'right';
             const neighborSide = neighbor.col <= 2 ? 'left' : 'right';
             return seatSide === neighborSide;
         });
 
-        // Check constraints for all valid neighbors
         for (const neighbor of validNeighbors) {
             if (neighbor.status === 2) {
                 if (neighbor.gender === 1 && gender === 2) {
