@@ -86,10 +86,10 @@ const JourneySearch = () => {
 
     return (
         <div className='!bg-[#d13b38] w-full !mt-2 border'>
-            <div className="container !py-4 mx-auto">
-                <div className="bg-white rounded-2xl shadow-lg p-6">
-                    <div className="flex items-center gap-4">
-                        <div className="flex-1 bg-[#f5f5f5] rounded-2xl !px-4 !py-2 h-[80px] flex flex-col justify-center">
+            <div className="container !py-4 flex flex-col lg:flex-row gap-4 items-center justify-center">
+                <div className="bg-white rounded-2xl w-full shadow-lg p-6">
+                    <div className="flex flex-col lg:flex-row w-full items-center gap-4">
+                        <div className="flex-1 w-full lg:w-auto bg-[#f5f5f5] rounded-2xl !px-4 !py-2 h-[80px] flex flex-col justify-center">
                             <label className="text-sm text-gray-500 mb-1 block">Nereden</label>
                             <DropdownMenu>
                                 <DropdownMenuTrigger className="w-full text-left outline-none">
@@ -122,7 +122,7 @@ const JourneySearch = () => {
                             <ArrowLeftRight size={20} className="text-gray-600" />
                         </button>
 
-                        <div className="flex-1 bg-[#f5f5f5] rounded-2xl !px-4 !py-2 h-[80px] flex flex-col justify-center">
+                        <div className="flex-1 w-full lg:w-auto bg-[#f5f5f5] rounded-2xl !px-4 !py-2 h-[80px] flex flex-col justify-center">
 
                             <label className="text-sm text-gray-500 mb-1 block">Nereye</label>
                             <DropdownMenu>
@@ -148,7 +148,7 @@ const JourneySearch = () => {
                             </DropdownMenu>
                         </div>
 
-                        <div className="flex-1 bg-[#f5f5f5] rounded-2xl !px-4 !py-2 h-[80px] flex flex-col items-center justify-center">
+                        <div className="flex-1 w-full lg:w-auto bg-[#f5f5f5] rounded-2xl !px-4 !py-2 h-[80px] flex flex-col items-center justify-center">
                             <label className="text-sm text-gray-500 mb-1 block">Gidiş Tarihi</label>
                             <Popover>
                                 <PopoverTrigger className="w-full text-center outline-none">
@@ -207,7 +207,7 @@ const JourneySearch = () => {
 
                         <button
                             onClick={handleSearch}
-                            className="bg-emerald-600 cursor-pointer hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-md hover:shadow-lg"
+                            className="bg-emerald-600 w-full lg:w-auto cursor-pointer hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-md hover:shadow-lg"
                         >
                             Otobüs Ara
                         </button>

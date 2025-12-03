@@ -27,7 +27,7 @@ export interface Seat {
 
 export interface CheckoutRequest {
     journeyId: number;
-    seatId: number;
+    seatIds: number[];
     passengerName: string;
     identityNumber: string;
     gender: number;

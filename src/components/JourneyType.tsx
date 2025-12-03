@@ -1,4 +1,4 @@
-import { Bus, Plane, Hotel, Car, Ship } from 'lucide-react';
+import { Bus, Plane, Car } from 'lucide-react';
 
 interface JourneyTypeProps {
     activeType?: string;
@@ -9,9 +9,7 @@ const JourneyType = ({ activeType = 'bus', onTypeChange }: JourneyTypeProps) => 
     const journeyTypes = [
         { id: 'bus', label: 'Otobüs', icon: Bus },
         { id: 'plane', label: 'Uçak', icon: Plane },
-        { id: 'hotel', label: 'Otel', icon: Hotel },
         { id: 'car', label: 'Araç', icon: Car },
-        { id: 'ferry', label: 'Feribot', icon: Ship },
     ];
 
     return (
