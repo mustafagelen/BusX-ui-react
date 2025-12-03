@@ -43,7 +43,7 @@ const JourneyList = () => {
     }
 
     if (journeys.length === 0) {
-        return <div className="text-center py-8">Sefer bulunamadı.</div>;
+        return <div className="text-center text-bold text-gray-500 py-8">Sefer bulunamadı.</div>;
     }
 
     const handleSeatSelect = (journeyId: number) => {

@@ -16,30 +16,32 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
     const [journeyData, setJourneyData] = useState<Seat[] | null>(null);
     const [selectedSeats, setSelectedSeats] = useState<{ id: number; gender: number }[]>([]);
     const [warningMessage, setWarningMessage] = useState<string>('');
+    const [successMessage, setSuccessMessage] = useState<string>('');
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const fetchDetails = async () => {
-            setLoading(true);
-            try {
-                const data = await api.getSeats(journeyId);
-                setJourneyData(data.seats);
-            } catch (error) {
-                console.error("Sefer detayları yüklenirken hata:", error);
-                setWarningMessage("Veri yüklenemedi.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
         if (journeyId) fetchDetails();
     }, [journeyId]);
+
+    const fetchDetails = async () => {
+        setLoading(true);
+        try {
+            const data = await api.getSeats(journeyId);
+            setJourneyData(data.seats);
+        } catch (error) {
+            setWarningMessage("Veri yüklenemedi.");
+            setSuccessMessage('');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSeatSelect = (seat: Seat, gender: number) => {
         if (!journeyData) return;
 
         if (selectedSeats.length >= 4) {
             setWarningMessage('Maksimum 4 koltuk seçebilirsiniz.');
+            setSuccessMessage('');
             return;
         }
 
@@ -57,10 +59,14 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
             if (neighbor.status === 2) {
                 if (neighbor.gender === 1 && gender === 2) {
                     setWarningMessage('Erkek yanına kadın yolcu seçilemez.');
+                    setSuccessMessage('');
+
                     return;
                 }
                 if (neighbor.gender === 2 && gender === 1) {
                     setWarningMessage('Kadın yanına erkek yolcu seçilemez.');
+                    setSuccessMessage('');
+
                     return;
                 }
             }
@@ -83,7 +89,7 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
             const request: CheckoutRequest = {
                 journeyId: journeyId,
                 seatIds: selectedSeats.map(s => s.id),
-                passengerName: "Test Passenger",
+                passengerName: "Test",
                 identityNumber: "11111111111",
                 gender: selectedSeats[0].gender,
                 creditCardNumber: "1111222233334444"
@@ -92,14 +98,22 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
             const result = await api.buyTicket(request);
 
             if (result.isSuccess) {
-                alert(`Bilet başarıyla alındı! PNR: ${result.pnrCode}`);
+                setWarningMessage('');
+                setSuccessMessage(`Bilet başarıyla alındı! PNR: ${result.pnrCode}`);
                 setSelectedSeats([]);
+                fetchDetails();
+
+                setTimeout(() => {
+                    setSuccessMessage('');
+                }, 10000);
+
             } else {
+                setSuccessMessage('');
                 setWarningMessage(result.message || "İşlem başarısız.");
             }
         } catch (error) {
-            console.error("Bilet alma hatası:", error);
-            setWarningMessage("İşlem sırasında bir hata oluştu.");
+            setSuccessMessage('');
+            setWarningMessage((error as Error).message);
         } finally {
             setLoading(false);
         }
@@ -293,6 +307,12 @@ const JourneyDetail = ({ journeyId }: JourneyDetailProps) => {
                                 {warningMessage}
                             </div>
                         )}
+                        {successMessage && (
+                            <div className="mt-4 text-green-700 bg-green-50 p-3 rounded-lg text-sm font-medium border border-green-200 text-center">
+                                {successMessage}
+                            </div>
+                        )}
+
                         <div className="mt-6 flex flex-wrap gap-4 text-xs font-medium text-gray-600 justify-center">
                             <div className="flex items-center gap-2">
                                 <div className="w-5 h-5 bg-blue-100 border border-blue-300 rounded"></div>

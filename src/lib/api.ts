@@ -13,7 +13,6 @@ apiClient.interceptors.response.use(
     error => {
 
         const message = error.response?.data?.message || "Bir hata oluştu.";
-        console.error("API Hatası:", message);
         return Promise.reject(new Error(message));
     }
 );
