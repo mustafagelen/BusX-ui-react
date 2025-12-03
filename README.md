@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+BusX UI - Otobüs Biletleme Platformu
+BusX UI, kullanıcıların şehirlerarası otobüs seferlerini sorgulayabileceği, interaktif koltuk seçimi yapabileceği ve bilet satın alabileceği modern bir web arayüzüdür. ASP.NET Core (.NET 8) backend servisi ile haberleşecek şekilde tasarlanmıştır.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Teknoloji Yığını (Tech Stack)
+Bu proje aşağıdaki kütüphane ve desenler kullanılarak geliştirilmiştir:
 
-Currently, two official plugins are available:
+React (Vite): Hızlı geliştirme ortamı ve SPA performansı için.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Shadcn UI: Erişilebilir, özelleştirilebilir ve profesyonel UI bileşenleri (Radix UI tabanlı).
 
-## React Compiler
+Tailwind CSS: Hızlı ve esnek stillendirme için.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Lucide React: Modern, hafif ve tutarlı ikon seti.
 
-## Expanding the ESLint configuration
+Context API: Global durum yönetimi (Rezervasyon akışı, seçilen koltuklar ve kullanıcı oturumu) için.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Axios: Backend API ile haberleşme, interceptor yapısı ve hata yönetimi için.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Proje Özellikleri
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Gelişmiş Sefer Arama: Kalkış ve varış noktasına göre tarih bazlı sefer listeleme.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+İnteraktif Koltuk Seçimi:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Dolu/Boş koltuk durumu.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Cinsiyet kuralı kontrolleri (Kadın yanı/Erkek yanı).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Rezervasyon Yönetimi (Context API):
+
+Maksimum 4 koltuk sınırı kontrolü.
+
+
+Kurulum ve Çalıştırma
+Projeyi yerel ortamınızda ayağa kaldırmak için aşağıdaki adımları izleyin.
+
+Ön Gereksinimler
+Node.js (v18 veya üzeri)
+npm veya yarn
+
+1. Projeyi Klonlayın
+
+2. Bağımlılıkları Yükleyin
+npm install
+# veya
+yarn install
+
+3. Uygulamayı Başlatın
+
+npm run dev
+Uygulama http://localhost:5173 (veya terminalde belirtilen port) adresinde çalışacaktır.
